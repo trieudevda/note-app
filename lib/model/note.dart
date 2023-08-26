@@ -24,7 +24,7 @@ class Note{
     'description':description??'',
     'created_at':created_at??'',
     'updated_at':updated_at??'',
-    'deleted_at':deleted_at??''
+    'deleted_at':deleted_at??'',
   };
   static Future<List<Map<String, dynamic>>> getFull() async {
     List<Map<String, dynamic>> result=[];
@@ -61,7 +61,17 @@ class Note{
       print('loi $dataRes');
     }
   }
-  static Future<void> update(BuildContext context,Note note)async{}
+  static Future<void> update(BuildContext context,Note note)async{
+    var url = Uri.http(urlAPI,'/api/v1/note/update/${note.id}');
+    Response response = await http.post(url,body: jsonEncode(note.toJson()),headers: await User.getHeaders());
+    var dataRes=jsonDecode(response.body);
+    if(response.statusCode==200 && dataRes['status']=='success'){
+      Navigator.pushNamed(context, '/home');
+    }
+    else{
+      print('loi $dataRes');
+    }
+  }
   static Future<bool> delete(BuildContext context,int id)async{
     var url = Uri.http(urlAPI,'/api/v1/note/delete/$id');
     Response response = await http.get(url,headers:  await User.getHeaders());
