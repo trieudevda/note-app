@@ -5,6 +5,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:note_app/model/config.dart';
 
+import '../view/widget/popup/message_popup.dart';
+
 class User {
   int id;
   String name;
@@ -57,16 +59,18 @@ class User {
     return headers;
   }
   static Future<void> login(BuildContext context,String email, String password)async{
-    var url = Uri.http(urlAPI,'/api/v1/user/login');
+    var url = Uri.https(urlAPI,'/api/v1/user/login');
+    print(url);
     var response = await http.post(url,headers: headers, body: jsonEncode({
       'email': email,
       'password': password
     }),);
     var data= json.decode(response.body);
-    if(response.statusCode == 200){
+    if(response.statusCode == 200 && data['status']=='success'){
       await setToken(data['api_token'], 'create');
-      print('thanh cong');
-      Navigator.pushNamed(context, '/home');
+      messagePopup(context,'Thông Báo','Đăng nhập thành công','home');
+    }else{
+      messagePopup(context,'Thông Báo','Đăng nhập thất bại, vui lòng nhập lại email hoặc mật khẩu','');
     }
   }
 }

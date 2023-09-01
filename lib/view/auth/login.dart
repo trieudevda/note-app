@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:note_app/model/user.dart';
 import 'package:note_app/view/widget/container.dart';
 import 'package:note_app/view/widget/variable.dart';
+
+import '../widget/image/circle.dart';
+import '../widget/popup/message_popup.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -30,15 +34,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Image.network(
-                  'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-                  height: 100,
-                  width: 100,
-                  fit: BoxFit.cover,
-                ),
-              ),
+              ImageCircleWidget(path: 'assets/images/logo.png',),
               sizedBox(height: 2),
               const Text(
                 'Đăng Nhập',
@@ -72,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () {
                   _login(context);
                 },
-                child: const Text("Submit"),
+                child: const Text("Đăng Nhập"),
               ),
             ],
           ),

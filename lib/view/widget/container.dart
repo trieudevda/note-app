@@ -3,6 +3,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:note_app/model/note.dart';
 import 'package:note_app/view/note/update.dart';
+import 'package:note_app/view/widget/popup/message_popup.dart';
+import 'package:note_app/view/widget/popup/message_popup_loading.dart';
 
 Widget sizedBox({double height = 1}) {
   return SizedBox(height: 16 * height);
@@ -13,8 +15,17 @@ Widget itemList(BuildContext context,Note note) {
     padding: const EdgeInsets.only(left: 10,right:10),
     margin: const EdgeInsets.only(top: 5,bottom: 5,left: 10,right: 10),
     decoration: BoxDecoration(
+      color: Colors.white,
       border: Border.all(color: Colors.black12),
       borderRadius: const BorderRadius.all(Radius.circular(10)),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.5),
+          spreadRadius: 1,
+          blurRadius: 1,
+          offset: const Offset(0, 2), // changes position of shadow
+        ),
+      ],
     ),
     child: Column(
       children: <Widget>[
@@ -24,17 +35,8 @@ Widget itemList(BuildContext context,Note note) {
             Text(note.title),
             IconButton(
                 onPressed: (){
-                  EasyLoading.show(status: 'loading...');
-                  Note.delete(context,note.id)
-                      .then((value) {
-                        print(value?'xoa thanh xong':'xoa that bai');
-                        EasyLoading.dismiss();
-                        Navigator.pushNamed(context, '/home');
-                      })
-                      .catchError((e){
-                        print('xoa that bai ${e.toString}');
-                        EasyLoading.dismiss();
-                      });
+                  Note.delete(context,note.id);
+                  Navigator.pushNamed(context, '/home');
                 },
                 icon: const FaIcon(FontAwesomeIcons.trash,size: 16,),
             ),

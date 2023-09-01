@@ -1,4 +1,3 @@
-String existString(String str){
-  String data='';
-  return data;
+String existString(str){
+  return str!='' ? str.trim() :'';
 }

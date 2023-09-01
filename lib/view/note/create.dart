@@ -5,6 +5,8 @@ import '../../model/category.dart';
 import '../../model/note.dart';
 import 'dart:math' as math;
 
+import '../widget/image/circle.dart';
+
 class CreateNotePage extends StatefulWidget {
   const CreateNotePage({super.key});
 
@@ -16,7 +18,7 @@ class _CreateNotePageState extends State<CreateNotePage> {
   final TextEditingController _categoryID = TextEditingController();
   final TextEditingController _title = TextEditingController();
   final TextEditingController _description = TextEditingController();
-  List<Map<String, dynamic>> item=[];
+  List<Categories> item=[];
   var dropdownValue;
 
   Future _getCategories()async{
@@ -24,7 +26,7 @@ class _CreateNotePageState extends State<CreateNotePage> {
     setState(() {
       item=data;
       dropdownValue=item.first;
-      _categoryID.text=dropdownValue['id'].toString();
+      _categoryID.text=dropdownValue.id.toString();
     });
   }
   @override
@@ -50,34 +52,14 @@ class _CreateNotePageState extends State<CreateNotePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Image.network(
-                  'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-                  height: 100,
-                  width: 100,
-                  fit: BoxFit.cover,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent? loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return Center(
-                      child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes!
-                            : null,
-                      ),
-                    );
-                  },
-                ),
-              ),
+              ImageCircleWidget(path: 'assets/images/logo.png',),
               sizedBox(height: 1),
               Container(
                 height:50,
                 child: Row(
                   children: [
                     Expanded(
-                      child: DropdownButton<Map<String,dynamic>>(
+                      child: DropdownButton<Categories>(
                         hint: const Text('chưa có dữ liệu'),
                         isExpanded: true,
                         icon: const FaIcon(FontAwesomeIcons.chevronDown),
@@ -90,13 +72,13 @@ class _CreateNotePageState extends State<CreateNotePage> {
                         onChanged: (value) {
                           setState(() {
                             dropdownValue = value!;
-                            _categoryID.text=(value['id']!).toString();
+                            _categoryID.text=(value.id).toString();
                           });
                         },
-                        items: item.map<DropdownMenuItem<Map<String,dynamic>>>((Map<String,dynamic> value) {
-                          return DropdownMenuItem<Map<String,dynamic>>(
+                        items: item.map<DropdownMenuItem<Categories>>((Categories value) {
+                          return DropdownMenuItem<Categories>(
                             value: value,
-                            child: Text(value['name'].toString(),style: TextStyle(color: Colors.black),),
+                            child: Text(value.name.toString(),style: TextStyle(color: Colors.black),),
                           );
                         }).toList(),
                         value: dropdownValue,
