@@ -1,10 +1,8 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:note_app/model/user.dart';
-import 'package:note_app/widget/exist.dart';
 
 import 'config.dart';
 
@@ -41,7 +39,7 @@ class Categories{
   };
   static Future<List<Categories>> getAll()async{
     List<Categories> cate=[];
-    var url = Uri.https(urlAPI,'/api/v1/category/list');
+    var url = Uri.http(urlAPI,'/api/v1/category/list');
     Response response = await http.get(url,headers: await User.getHeaders());
     var dataRes=jsonDecode(response.body);
     var temp=dataRes['category'] ;
@@ -52,7 +50,7 @@ class Categories{
   }
   static Future<Categories> find(int id)async{
     late Categories data;
-    var url = Uri.https(urlAPI,'/api/v1/category/search/$id');
+    var url = Uri.http(urlAPI,'/api/v1/category/search/$id');
     Response response = await http.get(url,headers: await User.getHeaders());
     var dataRes=jsonDecode(response.body);
     if(response.statusCode==200){

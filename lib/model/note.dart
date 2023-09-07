@@ -5,7 +5,6 @@ import 'package:http/http.dart';
 import 'package:note_app/model/user.dart';
 import 'package:note_app/model/category.dart';
 
-import '../widget/exist.dart';
 import 'config.dart';
 import 'package:http/http.dart' as http;
 class Note{
@@ -39,7 +38,7 @@ class Note{
   };
   static Future<List<Map<String, dynamic>>> getFull() async {
     List<Map<String, dynamic>> result=[];
-    var url = Uri.https(urlAPI,'/api/v1/note/list');
+    var url = Uri.http(urlAPI,'/api/v1/note/list');
     Response response = await http.get(url,headers:  await User.getHeaders());
     var data=jsonDecode(response.body);
     var temp=data['note'] as List<dynamic>;
@@ -50,7 +49,7 @@ class Note{
   }
   static Future<Note> find(int id)async{
     late Note data;
-    var url = Uri.https(urlAPI,'/api/v1/note/search/$id');
+    var url = Uri.http(urlAPI,'/api/v1/note/search/$id');
     Response response = await http.get(url,headers: await User.getHeaders());
     var dataRes=jsonDecode(response.body);
     if(response.statusCode==200){
@@ -62,7 +61,7 @@ class Note{
     return data;
   }
   static Future<void> create(BuildContext context,Note note)async{
-    var url = Uri.https(urlAPI,'/api/v1/note/create');
+    var url = Uri.http(urlAPI,'/api/v1/note/create');
     Response response = await http.post(url,body: jsonEncode(note.toJson()),headers: await User.getHeaders());
     var dataRes=jsonDecode(response.body);
     if(response.statusCode==200){
@@ -73,7 +72,7 @@ class Note{
     }
   }
   static Future<void> update(BuildContext context,Note note)async{
-    var url = Uri.https(urlAPI,'/api/v1/note/update/${note.id}');
+    var url = Uri.http(urlAPI,'/api/v1/note/update/${note.id}');
     Response response = await http.post(url,body: jsonEncode(note.toJson()),headers: await User.getHeaders());
     var dataRes=jsonDecode(response.body);
     if(response.statusCode==200 && dataRes['status']=='success'){
@@ -84,7 +83,7 @@ class Note{
     }
   }
   static Future<bool> delete(BuildContext context,int id)async{
-    var url = Uri.https(urlAPI,'/api/v1/note/delete/$id');
+    var url = Uri.http(urlAPI,'/api/v1/note/delete/$id');
     Response response = await http.get(url,headers:  await User.getHeaders());
     var data=jsonDecode(response.body);
     if(response.statusCode==200 && data['status']=='success')

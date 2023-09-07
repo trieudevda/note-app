@@ -106,7 +106,7 @@ class _UpdateNotePageState extends State<UpdateNotePage> {
                 onPressed: () {
                   _update(context);
                 },
-                child: const Text("Submit"),
+                child: const Text("Gửi"),
               ),
             ],
           ),

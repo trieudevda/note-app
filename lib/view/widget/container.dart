@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:note_app/model/note.dart';
 import 'package:note_app/view/note/update.dart';
-import 'package:note_app/view/widget/popup/message_popup.dart';
-import 'package:note_app/view/widget/popup/message_popup_loading.dart';
 
 Widget sizedBox({double height = 1}) {
   return SizedBox(height: 16 * height);

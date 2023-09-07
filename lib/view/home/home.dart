@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/model/category.dart';
+import 'package:note_app/model/user.dart';
+import 'package:note_app/view/widget/drawer/drawer.dart';
 
 import '../../model/note.dart';
 import '../widget/container.dart';
@@ -18,7 +20,7 @@ class _HomePageState extends State<HomePage> {
       onWillPop: () async {  return false; },
       child: Scaffold(
           appBar: AppBar(
-              automaticallyImplyLeading: false,
+              // automaticallyImplyLeading: false,
               title: Text('Trang chủ'),
           ),
           body: FutureBuilder(
@@ -49,6 +51,7 @@ class _HomePageState extends State<HomePage> {
               );
             },
           ),
+        drawer: DrawerCustom(),
         floatingActionButton: FloatingActionButton(
           child:const  Icon(Icons.add),
           backgroundColor: Colors.green,

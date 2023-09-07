@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:note_app/view/widget/container.dart';
 import '../../model/category.dart';
 import '../../model/note.dart';
-import 'dart:math' as math;
 
 import '../widget/image/circle.dart';
 
@@ -96,6 +95,9 @@ class _CreateNotePageState extends State<CreateNotePage> {
               sizedBox(height: 1),
               TextField(
                 controller: _description,
+                keyboardType: TextInputType.multiline,
+                minLines: 1,
+                maxLines: 6,
                 decoration: const InputDecoration(
                   labelText: 'description',
                 ),
@@ -105,7 +107,7 @@ class _CreateNotePageState extends State<CreateNotePage> {
                 onPressed: () {
                   _create(context);
                 },
-                child: const Text("Submit"),
+                child: const Text("Gửi"),
               ),
             ],
           ),

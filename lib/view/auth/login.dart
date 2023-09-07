@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:note_app/model/user.dart';
 import 'package:note_app/view/widget/container.dart';
 import 'package:note_app/view/widget/variable.dart';
 
 import '../widget/image/circle.dart';
-import '../widget/popup/message_popup.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -66,6 +64,7 @@ class _LoginPageState extends State<LoginPage> {
               sizedBox(height: 1),
               ElevatedButton(
                 onPressed: () {
+                  // User.loginFromToken();
                   _login(context);
                 },
                 child: const Text("Đăng Nhập"),
